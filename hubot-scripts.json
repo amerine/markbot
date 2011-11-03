@@ -7,4 +7,5 @@
   "lolz.coffee",
   "sendgrid.coffee",
   "sudo.coffee",
-  "wolfram.coffee"]
+  "wolfram.coffee",
+  "ascii.coffee"]
