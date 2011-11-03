@@ -5,4 +5,5 @@
   "keep-alive.coffee",
   "likeaboss.coffee",
   "lolz.coffee",
-  "sendgrid.coffee"]
+  "sendgrid.coffee",
+  "sudo.coffee"]
