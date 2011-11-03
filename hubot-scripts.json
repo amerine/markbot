@@ -1,1 +1,8 @@
-["redis-brain.coffee", "dice.coffee", "github-credentials.coffee", "haters.coffee", "keep-alive.coffee", "likeaboss.coffee", "lolz.coffee"]
+[ "redis-brain.coffee",
+  "dice.coffee",
+  "github-credentials.coffee",
+  "haters.coffee",
+  "keep-alive.coffee",
+  "likeaboss.coffee",
+  "lolz.coffee",
+  "newrelic.coffee"]
