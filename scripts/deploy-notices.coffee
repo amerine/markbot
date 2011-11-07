@@ -48,8 +48,9 @@ module.exports = (robot) ->
     reference   = msg.match[4]
     sha1        = msg.match[5]
 
-    deploy = new Deploy(deployer, {"action":action, "environment":environment, "reference":reference, "sha1":sha1})
-    deploys.add deploy
+    if action == "finished"
+      deploy = new Deploy(deployer, {"action":action, "environment":environment, "reference":reference, "sha1":sha1})
+      deploys.add deploy
 
 
   robot.respond /list deploys/i, (msg) ->
