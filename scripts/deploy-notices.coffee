@@ -9,7 +9,7 @@ class Deploys
 
   add: (deploy) ->
     @cache.push deploy
-    @cache.sort (a, b) -> a.date - b.date
+    @cache.sort (a, b) -> b.date - a.date
     @robot.brain.data.deploys = @cache
 
   list: (msg) ->
@@ -24,6 +24,20 @@ class Deploys
       msg.send "These are the deploys I know\n\n" + deploys.join('\n')
     else
       msg.send "I don't know about any deploys"
+
+  delete: (timestamp) ->
+    deploys = []
+    for deploy in @cache
+      do (deploy) ->
+        if String(deploy.date) != timestamp
+          deploys.push deploy
+
+    if timestamp != 'all'
+      @cache = deploys
+      @robot.brain.data.deploys = deploys
+    else
+      @cache = []
+      @robot.brain.data.deploys = []
 
 class Deploy
   # Represents a deploy notice
@@ -55,3 +69,8 @@ module.exports = (robot) ->
 
   robot.respond /list deploys/i, (msg) ->
     deploys.list(msg)
+
+  robot.respond /delete deploy ([\w .-]+)/i, (msg) ->
+    timestamp = msg.match[1]
+    output = deploys.delete(timestamp)
+    msg.send "Deleted: " + timestamp + "."
