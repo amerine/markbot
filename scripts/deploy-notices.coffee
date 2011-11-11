@@ -16,8 +16,17 @@ class Deploys
     deploys = []
     for deploy in @cache
       do (deploy) ->
+        tmp_date = new Date(deploy.date)
+        deploy_date = tmp_date.getFullYear().toString() + "/" +
+                      (1+tmp_date.getMonth()).toString() + "/" +
+                      tmp_date.getDate().toString() + " " +
+                      tmp_date.getHours().toString() + ":" +
+                      tmp_date.getMinutes().toString() + ":" +
+                      tmp_date.getSeconds().toString() + " / " +
+                      tmp_date.getTime().toString()
+
         return_deploy = "Environment: " + deploy.environment + ". Version: " + deploy.reference + ". SHA1: " + deploy.sha1 + ". By: " + 
-                        deploy.deployer + " on " + deploy.date + "."
+                        deploy.deployer + " on " + deploy_date + "."
         deploys.push return_deploy
 
     if deploys.length > 0
