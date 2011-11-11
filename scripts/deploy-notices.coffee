@@ -41,10 +41,10 @@ class Deploys
         if String(deploy.date) != timestamp
           deploys.push deploy
 
-    if timestamp != 'all'
-      @cache = deploys
-      @robot.brain.data.deploys = deploys
-    else
+    @cache = deploys
+    @robot.brain.data.deploys = deploys
+
+    if timestamp == 'all'
       @cache = []
       @robot.brain.data.deploys = []
 
