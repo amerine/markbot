@@ -1,5 +1,8 @@
 # list deploys - List Known Deploys
 # delete deploy <timestamp> - Deletes the deploy referenced by the unix timestamp
+
+time = require('time')
+
 class Deploys
   constructor: (@robot) ->
     @cache = []
@@ -17,23 +20,21 @@ class Deploys
     deploys = []
     for deploy in @cache
       do (deploy) ->
-        tmp_date = new Date(deploy.date)
-        deploy_date = tmp_date.getFullYear().toString() + "/" +
-                      (1+tmp_date.getMonth()).toString() + "/" +
-                      tmp_date.getDate().toString() + " " +
-                      tmp_date.getHours().toString() + ":" +
-                      tmp_date.getMinutes().toString() + ":" +
-                      tmp_date.getSeconds().toString() + " / " +
-                      tmp_date.getTime().toString()
+        deploy_date = new time.Date(deploy.date)
+        deploy_date.setTimezone("America/Los_Angeles")
 
-        return_deploy = "Environment: " + deploy.environment + ". Version: " + deploy.reference + ". SHA1: " + deploy.sha1 + ". By: " + 
-                        deploy.deployer + " on " + deploy_date + "."
+        return_deploy = "" + deploy.environment +
+                      " - " + deploy.reference +
+                      "/" + deploy.sha1 +
+                      ". By: " + deploy.deployer +
+                      " on " + deploy_date + " / " + deploy.date + "."
+
         deploys.push return_deploy
 
     if deploys.length > 0
-      msg.send "These are the deploys I know\n\n" + deploys.join('\n')
+      msg.send deploys.join('\n')
     else
-      msg.send "I don't know about any deploys"
+      msg.send "No Deploys Recorded"
 
   delete: (timestamp) ->
     deploys = []
