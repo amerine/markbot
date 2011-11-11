@@ -1,4 +1,5 @@
 # list deploys - List Known Deploys
+# delete deploy <timestamp> - Deletes the deploy referenced by the unix timestamp
 class Deploys
   constructor: (@robot) ->
     @cache = []
